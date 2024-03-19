@@ -14,7 +14,6 @@ spring:
     password:
     username: sa
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
     hibernate:
       ddl-auto: create-drop
     show-sql: true
