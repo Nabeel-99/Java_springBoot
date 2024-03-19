@@ -2,7 +2,9 @@ package org.mik.first.spring;
 
 import org.junit.jupiter.api.Test;
 import org.mik.first.spring.domain.Country;
+import org.mik.first.spring.domain.Person;
 import org.mik.first.spring.repository.CountryRepository;
+import org.mik.first.spring.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,9 @@ class JPATest {
 
 	@Autowired
 	private CountryRepository countryRepository;
+
+	@Autowired
+	private PersonRepository personRepository;
 	@Test
 	void countryTest() {
 		Country c = Country.builder().name("Hungary")
@@ -37,7 +42,7 @@ class JPATest {
 		);
 
 		countryRepository.save(Country.builder()
-				.name("Betelgeues")
+				.name("Betelgeuse")
 				.sign("BT")
 				.build()
 
@@ -54,6 +59,18 @@ class JPATest {
 				System.out::println,
 				()->fail("Hungary is not found")
 		);
+	}
+
+	@Test
+	void personTest(){
+		countryRepository.findByName("Betelgeuse").ifPresentOrElse(cy-> {
+			Person p=Person.builder()
+					.name("Zaphod Beeblebrox")
+					.country(cy)
+					.build();
+			personRepository.save(p);
+		},
+		()->fail("there is no Betelgeuse"));
 	}
 
 }
