@@ -29,4 +29,8 @@ public class CountryService {
         List<Country> q=countryRepository.findAll();
         q.forEach(log::info);
     }
+
+    public List<Country> getAll() {
+        return this.countryRepository.findAll();
+    }
 }
